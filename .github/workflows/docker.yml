@@ -1,0 +1,37 @@
+name: Build, Push Image Google GCR an Publish Portainer
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  IMAGE: "nginx"
+  IMAGE_TAG: ${{ github.sha }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - 
+      name: Checkout
+      uses: actions/checkout@v2
+    -
+      name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Docker Login gcr.io
+      run: |
+        echo ${{secrets.GCP_SA_KEY}} | docker login -u _json_key --password-stdin https://gcr.io
+    -
+      name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        platforms: linux/amd64,linux/arm64
+        push: true
+        tags: ${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:${{env.IMAGE_TAG}},${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:latest
