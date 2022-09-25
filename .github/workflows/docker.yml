@@ -9,7 +9,7 @@ on:
 env:
   IMAGE: "nginx"
   IMAGE_TAG: ${{ github.sha }}
-
+  STACK_NAME: "registry"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,3 +38,17 @@ jobs:
         platforms: linux/amd64,linux/arm64
         push: true
         tags: ${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:${{env.IMAGE_TAG}},${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:latest
+
+    - name: portainer deploy
+      uses: LGinC/portainer-stack-deploy@master
+      with:
+        serverurl: ${{secrets.PORTAINER_HOSTNAME}}
+        username: ${{ secrets.PORTAINER_USERNAME }}
+        password: ${{ secrets.PORTAINER_PASSWORD }}
+        endpointId: ${{ secrets.PORTAINER_ENDPOINT_ID }}
+        stackname: ${{env.STACK_NAME}}
+        imagenames: |
+            ${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:latest
+        env: |
+          ${{secrets.PORTAINER_ENV}}
+        docker_compose_path: docker-compose.yaml
