@@ -40,6 +40,7 @@ jobs:
         tags: ${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:${{env.IMAGE_TAG}},${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:latest
         
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
           - uses: actions/checkout@v2
