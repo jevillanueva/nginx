@@ -79,9 +79,10 @@ jobs:
         # portainer EndpointId,default 1
         endpointId: ${{ secrets.PORTAINER_ENDPOINT_ID }}
         # name of stack, lowercase
-        imagenames: ${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:latest
+        imagenames: ${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:${{env.IMAGE_TAG}}
         stackname: ${{env.STACK_NAME}}
         env: |
+          IMAGE=${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:${{env.IMAGE_TAG}}
           ${{secrets.PORTAINER_ENV}}
         # variables: # optional
         # # content of docker-compose.yml
