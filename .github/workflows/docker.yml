@@ -49,6 +49,33 @@ jobs:
       name: Checkout
       uses: actions/checkout@v2
 
+    - name: portainer stack deploy
+      # You may pin to the exact commit or the version.
+      # uses: LGinC/portainer-stack-deploy@bd0630aaede92cb9b6221050f4bec62e21fb6033
+      uses: LGinC/portainer-stack-deploy@1.0
+      with:
+        # portainer server url
+        serverurl: ${{ secrets.PORTAINER_HOSTNAME }}
+        # portainer admin user name
+        username: ${{ secrets.PORTAINER_USERNAME }}
+        # portainer admin user password
+        password: ${{ secrets.PORTAINER_PASSWORD }}
+        # portainer EndpointId,default 1
+        endpointId: ${{ secrets.PORTAINER_ENDPOINT_ID }}
+        # name of stack, lowercase
+        stackname: ${{env.STACK_NAME}}
+        
+        env: |
+          ${{secrets.PORTAINER_ENV}}
+        # variables: # optional
+        # # content of docker-compose.yml
+        # docker_compose: 
+        # docker-compose.yml in repository relative path
+        docker_compose_path: docker-compose.yml
+        # # username of git repository
+        # repo_username: # optional
+        # # password of git repository
+        # repo_password: # optional  
 
     - name: Deploy stack to Portainer
       uses: carlrygart/portainer-stack-deploy@v1
