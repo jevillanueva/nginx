@@ -63,6 +63,7 @@ jobs:
         # portainer EndpointId,default 1
         endpointId: ${{ secrets.PORTAINER_ENDPOINT_ID }}
         # name of stack, lowercase
+        imagenames: ${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:latest
         stackname: ${{env.STACK_NAME}}
         env: |
           ${{secrets.PORTAINER_ENV}}
