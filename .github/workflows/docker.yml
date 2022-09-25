@@ -64,7 +64,6 @@ jobs:
         endpointId: ${{ secrets.PORTAINER_ENDPOINT_ID }}
         # name of stack, lowercase
         stackname: ${{env.STACK_NAME}}
-        
         env: |
           ${{secrets.PORTAINER_ENV}}
         # variables: # optional
@@ -75,15 +74,4 @@ jobs:
         # # username of git repository
         # repo_username: # optional
         # # password of git repository
-        # repo_password: # optional  
-
-    - name: Deploy stack to Portainer
-      uses: carlrygart/portainer-stack-deploy@v1
-      with:
-        portainer-host: ${{ secrets.PORTAINER_HOSTNAME }}
-        username: ${{ secrets.PORTAINER_USERNAME }}
-        password: ${{ secrets.PORTAINER_PASSWORD }}
-        stack-name: ${{env.STACK_NAME}}
-        stack-definition: 'docker-compose.yml'
-        endpoint-id: ${{ secrets.PORTAINER_ENDPOINT_ID }}
-        image: ${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:latest
+        # repo_password: # optional
