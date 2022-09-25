@@ -59,29 +59,4 @@ jobs:
         stack-name: ${{env.STACK_NAME}}
         stack-definition: 'docker-compose.yml'
         endpoint-id: ${{ secrets.PORTAINER_ENDPOINT_ID }}
-        template-variables: |
-          ${{secrets.PORTAINER_ENV}}
         image: ${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:latest
-
-    # - name: Deploy Stack
-    #   uses: bots-house/portainer-deploy-stack-action
-    #   with:
-    #     # url of Poratainer instance
-    #     portainer-url: ${{ secrets.PORTAINER_HOSTNAME }}
-
-    #     # portainer auth
-    #     portainer-username: ${{ secrets.PORTAINER_USERNAME }}
-    #     portainer-password: ${{ secrets.PORTAINER_PASSWORD }}
-        
-    #     # internal portainer cluster id
-    #     portainer-endpoint: PORTAINER_ENDPOINT_ID
-        
-    #     # stack name
-    #     stack-name: ${{env.STACK_NAME}}
-
-    #     # docker stack file location
-    #     stack-file: docker-compose.yml
-        
-    #     # vars to substitute in stack
-    #     stack-vars: |
-    #       ${{secrets.PORTAINER_ENV}}
