@@ -51,4 +51,4 @@ jobs:
             ${{secrets.REGISTRY_HOSTNAME}}/${{env.IMAGE}}:latest
         env: |
           ${{secrets.PORTAINER_ENV}}
-        docker_compose_path: docker-compose.yaml
+        docker_compose_path: docker-compose.yml
