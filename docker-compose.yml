@@ -1,15 +1,18 @@
 version: '3'
 services:
   web:
+    expose:
+      - ${TRAEFIK_APP_PORT}
     image: ${IMAGE}
     restart: always
     labels:
-      - traefik.http.routers.${TRAEFIK_ROUTE}.rule=Host(`${TRAEFIK_APP_DOMAIN}`)
+      - traefik.http.routers.${TRAEFIK_ROUTE}.rule=Host(${TRAEFIK_APP_DOMAIN})
       - traefik.http.routers.${TRAEFIK_ROUTE}.tls=true
       - traefik.http.routers.${TRAEFIK_ROUTE}.tls.certresolver=lets-encrypt
       - traefik.port=${TRAEFIK_APP_PORT}
     networks:
       - web
+      
 networks:
   web:
     external: true
